@@ -1,8 +1,3 @@
-# This module can help you to prevent your group from copyright content. this can delete messages which contains more than 50 words so say fu*k off to the copyright content.
-# Pyrogram 2.0 supported module.
-# MIT-License copyright own by kopelor 2024-25.
-# Delete all admin non admin messages which are blocked.
-
 import re
 from pyrogram import Client, filters
 from AnonXMusic import app
