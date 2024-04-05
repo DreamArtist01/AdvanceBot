@@ -14,6 +14,28 @@ async def delete_long_messages(client, message):
         await client.delete_messages(message.chat.id, message.id)
 
 
+# Regular expression pattern to match URLs
+url_pattern = re.compile(r'https?://\S+')
+
+# List of domains to whitelist (links from these domains won't be deleted)
+whitelisted_domains = ["example.com", "sample.org"]
+
+# Filter function to check if a message contains a proper link
+def contains_proper_link(msg: Message):
+    if msg.text:
+        urls = url_pattern.findall(msg.text)
+        for url in urls:
+            domain = url.split("/")[2]
+            if domain not in whitelisted_domains:
+                return True
+       return False
+
+# Handler to delete messages containing proper links
+@app.on_message(filters.group & filters.text & filters.create(contains_proper_link))
+def delete_message_with_proper_link(client, message):
+    client.delete_messages(message.chat.id, message.message_id)
+
+
 # Delete edited messages
 @app.on_edited_message(filters.group)
 async def delete_edited_messages(client, message):
