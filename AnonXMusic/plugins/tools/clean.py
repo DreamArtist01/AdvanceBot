@@ -28,7 +28,7 @@ def contains_proper_link(msg: Message):
             domain = url.split("/")[2]
             if domain not in whitelisted_domains:
                 return True
- return False
+     return False
 
 # Handler to delete messages containing proper links
 @app.on_message(filters.group & filters.text & filters.create(contains_proper_link))
